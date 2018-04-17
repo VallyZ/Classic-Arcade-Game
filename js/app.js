@@ -1,12 +1,18 @@
+function random(min, max) {
+  return Math.random() * (max - min) + min;
+}
 // Enemies our player must avoid
 class Enemy {
-  constructor() {
+  constructor(x, y) {
     // Variables applied to each of our instances go here,
     // we've provided one for you to get started
 
     // The image/sprite for our enemies, this uses
     // a helper we've provided to easily load images
     this.sprite = 'images/enemy-bug.png';
+    this.x = x;
+    this.y = y - 43;
+    this.speed = random(200, 300);
   }
 
   // Update the enemy's position, required method for game
@@ -15,6 +21,15 @@ class Enemy {
     // You should multiply any movement by the dt parameter
     // which will ensure the game runs at the same speed for
     // all computers.
+    this.x += this.speed * dt
+    if (this.x > 6 * 101) {
+      this.x = -101;
+      this.speed = random(200, 300);
+    }
+    if (Math.abs(this.x - player.x) < 101 &&
+      Math.abs(this.y - player.y) < 83) {
+      player.reset();
+    }
   }
 
   // Draw the enemy on the screen, required method for game
@@ -55,3 +70,4 @@ document.addEventListener('keyup', function(e) {
 
   player.handleInput(allowedKeys[e.keyCode]);
 });
+//select a random number between min max
