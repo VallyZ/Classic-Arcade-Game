@@ -44,8 +44,53 @@ class Enemy {
 class Player {
   constructor() {
     this.sprite = 'images/char-boy.png';
+    this.reset();
   }
+  update() {
+    this.x = this.col * 101;
+    this.y = this.row * 83 - 43;
 
+    if (this.col < 0) {
+      this.col = 0;
+    }
+
+    if (this.col > 4) {
+      this.col = 4;
+    }
+
+    if (this.row > 5) {
+      this.row = 5;
+    }
+    if (this.row == 0) {
+      this.reset();
+    }
+
+  };
+  render() {
+    ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
+  };
+  handleInput(key) {
+    switch (key) {
+      case 'left':
+        this.col--;
+        break;
+      case 'right':
+        this.col++;
+        break;
+      case 'up':
+        this.row--;
+        break;
+      case 'down':
+        this.row++;
+        break;
+    }
+  };
+  reset() {
+    this.col = 2;
+    this.row = 5;
+    this.x = this.col * 101;
+    this.y = this.row * 83 - 43;
+  }
 }
 
 
