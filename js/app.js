@@ -1,3 +1,4 @@
+//select a random number between min max
 function random(min, max) {
   return Math.random() * (max - min) + min;
 }
@@ -12,7 +13,7 @@ class Enemy {
     this.sprite = 'images/enemy-bug.png';
     this.x = x;
     this.y = y - 43;
-    this.speed = random(200, 300);
+    this.speed = random(200, 400);
   }
 
   // Update the enemy's position, required method for game
@@ -24,9 +25,9 @@ class Enemy {
     this.x += this.speed * dt
     if (this.x > 6 * 101) {
       this.x = -101;
-      this.speed = random(200, 300);
+      this.speed = random(200, 400);
     }
-    if (Math.abs(this.x - player.x) < 101 &&
+    if (Math.abs(this.x - player.x) < 83 &&
       Math.abs(this.y - player.y) < 83) {
       player.reset();
     }
@@ -46,6 +47,7 @@ class Player {
     this.sprite = 'images/char-boy.png';
     this.reset();
   }
+
   update() {
     this.x = this.col * 101;
     this.y = this.row * 83 - 43;
@@ -62,9 +64,9 @@ class Player {
       this.row = 5;
     }
     if (this.row == 0) {
+      alert('You Won');
       this.reset();
     }
-
   };
   render() {
     ctx.drawImage(Resources.get(this.sprite), this.x, this.y);
@@ -93,7 +95,6 @@ class Player {
   }
 }
 
-
 // Now instantiate your objects.
 // Place all enemy objects in an array called allEnemies
 const numEnemies = 3;
@@ -117,4 +118,3 @@ document.addEventListener('keyup', function(e) {
 
   player.handleInput(allowedKeys[e.keyCode]);
 });
-//select a random number between min max
